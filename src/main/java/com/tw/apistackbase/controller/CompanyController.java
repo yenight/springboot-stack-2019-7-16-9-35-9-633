@@ -4,15 +4,28 @@ import com.tw.apistackbase.Company;
 import com.tw.apistackbase.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CompanyController {
-    @Autowired
-    private CompanyRepository companyRepository;
+    private CompanyRepository companyRepository = new CompanyRepository();
+
+    @GetMapping("/companies")
+    public ResponseEntity getCompanies() {
+        return ResponseEntity.ok(companyRepository.getCompanies());
+    }
+
+    @GetMapping("/companies/{id}")
+    public ResponseEntity getCompaniesById(@PathVariable long id) {
+        return ResponseEntity.ok(companyRepository.getCompaniesById(id));
+    }
+
+    @GetMapping("/companies/{id}/employees")
+    public ResponseEntity getCompanyEmployeesById(@PathVariable long id) {
+        return ResponseEntity.ok(companyRepository.getCompanyEmployeesById(id));
+    }
+
+
 
     @PostMapping("/companies")
     public ResponseEntity createCompany(@RequestBody Company company) {
@@ -20,8 +33,4 @@ public class CompanyController {
         return ResponseEntity.ok(company);
     }
 
-    @GetMapping("/companies")
-    public ResponseEntity getCompanies() {
-        return ResponseEntity.ok(companyRepository.getCompanies());
-    }
 }
