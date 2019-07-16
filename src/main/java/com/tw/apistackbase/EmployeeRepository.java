@@ -14,6 +14,7 @@ public class EmployeeRepository {
         this.employees = new ArrayList<>();
         employees.add(new Employee(1, "a", 10, "male", 6000));
         employees.add(new Employee(2, "b", 20, "female", 8000));
+        employees.add(new Employee(3, "c", 30, "male", 9000));
     }
 
     public List<Employee> getEmployees() {
