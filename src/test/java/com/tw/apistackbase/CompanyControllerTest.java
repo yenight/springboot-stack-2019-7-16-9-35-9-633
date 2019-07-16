@@ -125,4 +125,65 @@ public class CompanyControllerTest {
                         "    }\n" +
                         "]"));
     }
+
+    @Test
+    public void should_return_some_companies_when_request_request_page_and_pageSize_api() throws Exception {
+        List<Company> mockCompanyList = new ArrayList<>();
+        mockCompanyList.add(new Company(1001, "oocl", 30, new EmployeeRepository().getEmployees()));
+        mockCompanyList.add(new Company(0, "a", 10, new EmployeeRepository().getEmployees()));
+        mockCompanyList.add(new Company(1, "b", 20, new EmployeeRepository().getEmployees()));
+        mockCompanyList.add(new Company(2, "c", 30, new EmployeeRepository().getEmployees()));
+        mockCompanyList.add(new Company(3, "d", 40, new EmployeeRepository().getEmployees()));
+        mockCompanyList.add(new Company(4, "e", 50, new EmployeeRepository().getEmployees()));
+        mockCompanyList.add(new Company(5, "f", 60, new EmployeeRepository().getEmployees()));
+        Mockito.when(mockCompanyRepository.getCompanies()).thenReturn(mockCompanyList);
+
+        mockMvc.perform(get("/companies?page=1&pageSize=4"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json("[\n" +
+                        "    {\n" +
+                        "        \"id\": 0,\n" +
+                        "        \"companyName\": \"a\",\n" +
+                        "        \"employeesNumber\": 10,\n" +
+                        "        \"employees\": [\n" +
+                        "            {\n" +
+                        "                \"id\": 1,\n" +
+                        "                \"name\": \"a\",\n" +
+                        "                \"age\": 10,\n" +
+                        "                \"gender\": \"male\",\n" +
+                        "                \"salary\": 6000\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"id\": 2,\n" +
+                        "                \"name\": \"b\",\n" +
+                        "                \"age\": 20,\n" +
+                        "                \"gender\": \"female\",\n" +
+                        "                \"salary\": 8000\n" +
+                        "            }\n" +
+                        "        ]\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "        \"id\": 1,\n" +
+                        "        \"companyName\": \"b\",\n" +
+                        "        \"employeesNumber\": 20,\n" +
+                        "        \"employees\": [\n" +
+                        "            {\n" +
+                        "                \"id\": 1,\n" +
+                        "                \"name\": \"a\",\n" +
+                        "                \"age\": 10,\n" +
+                        "                \"gender\": \"male\",\n" +
+                        "                \"salary\": 6000\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"id\": 2,\n" +
+                        "                \"name\": \"b\",\n" +
+                        "                \"age\": 20,\n" +
+                        "                \"gender\": \"female\",\n" +
+                        "                \"salary\": 8000\n" +
+                        "            }\n" +
+                        "        ]\n" +
+                        "    }\n" +
+                        "]"));
+    }
 }
