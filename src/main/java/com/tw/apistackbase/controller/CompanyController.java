@@ -61,4 +61,14 @@ public class CompanyController {
         }
     }
 
+    @DeleteMapping(value = "/companies/{id}")
+    public ResponseEntity deleteCompany(@PathVariable long id) {
+        if (id >= 0) {
+            Company company = companyRepository.getCompanies().stream().filter(x->x.getId() == id).collect(Collectors.toList()).get(0);
+            companyRepository.remove(company);
+            return ResponseEntity.ok(companyRepository.getCompanies());
+        } else {
+            return (ResponseEntity) ResponseEntity.badRequest();
+        }
+    }
 }

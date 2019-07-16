@@ -40,4 +40,8 @@ public class CompanyRepository {
     public int getCompanyIndex(Company company) {
         return companyList.indexOf(company);
     }
+
+    public void remove(Company company) {
+        companyList.remove(company);
+    }
 }

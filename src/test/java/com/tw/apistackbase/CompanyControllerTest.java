@@ -233,5 +233,144 @@ public class CompanyControllerTest {
                         "}"));
     }
 
+    @Test
+    public void should_return_new_all_company_when_request_delete_a_company_api() throws Exception {
+        List<Company> mockCompanyList = new ArrayList<>();
+        mockCompanyList.add(new Company(1001, "oocl", 30, new EmployeeRepository().getEmployees()));
+        Mockito.when(mockCompanyRepository.getCompanies()).thenReturn(mockCompanyList);
+
+        mockMvc.perform(delete("/companies/1001"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json("[\n" +
+                        "    {\n" +
+                        "        \"id\": 0,\n" +
+                        "        \"companyName\": \"a\",\n" +
+                        "        \"employeesNumber\": 10,\n" +
+                        "        \"employees\": [\n" +
+                        "            {\n" +
+                        "                \"id\": 1,\n" +
+                        "                \"name\": \"a\",\n" +
+                        "                \"age\": 10,\n" +
+                        "                \"gender\": \"male\",\n" +
+                        "                \"salary\": 6000\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"id\": 2,\n" +
+                        "                \"name\": \"b\",\n" +
+                        "                \"age\": 20,\n" +
+                        "                \"gender\": \"female\",\n" +
+                        "                \"salary\": 8000\n" +
+                        "            }\n" +
+                        "        ]\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "        \"id\": 1,\n" +
+                        "        \"companyName\": \"b\",\n" +
+                        "        \"employeesNumber\": 20,\n" +
+                        "        \"employees\": [\n" +
+                        "            {\n" +
+                        "                \"id\": 1,\n" +
+                        "                \"name\": \"a\",\n" +
+                        "                \"age\": 10,\n" +
+                        "                \"gender\": \"male\",\n" +
+                        "                \"salary\": 6000\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"id\": 2,\n" +
+                        "                \"name\": \"b\",\n" +
+                        "                \"age\": 20,\n" +
+                        "                \"gender\": \"female\",\n" +
+                        "                \"salary\": 8000\n" +
+                        "            }\n" +
+                        "        ]\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "        \"id\": 2,\n" +
+                        "        \"companyName\": \"c\",\n" +
+                        "        \"employeesNumber\": 30,\n" +
+                        "        \"employees\": [\n" +
+                        "            {\n" +
+                        "                \"id\": 1,\n" +
+                        "                \"name\": \"a\",\n" +
+                        "                \"age\": 10,\n" +
+                        "                \"gender\": \"male\",\n" +
+                        "                \"salary\": 6000\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"id\": 2,\n" +
+                        "                \"name\": \"b\",\n" +
+                        "                \"age\": 20,\n" +
+                        "                \"gender\": \"female\",\n" +
+                        "                \"salary\": 8000\n" +
+                        "            }\n" +
+                        "        ]\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "        \"id\": 3,\n" +
+                        "        \"companyName\": \"d\",\n" +
+                        "        \"employeesNumber\": 40,\n" +
+                        "        \"employees\": [\n" +
+                        "            {\n" +
+                        "                \"id\": 1,\n" +
+                        "                \"name\": \"a\",\n" +
+                        "                \"age\": 10,\n" +
+                        "                \"gender\": \"male\",\n" +
+                        "                \"salary\": 6000\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"id\": 2,\n" +
+                        "                \"name\": \"b\",\n" +
+                        "                \"age\": 20,\n" +
+                        "                \"gender\": \"female\",\n" +
+                        "                \"salary\": 8000\n" +
+                        "            }\n" +
+                        "        ]\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "        \"id\": 4,\n" +
+                        "        \"companyName\": \"e\",\n" +
+                        "        \"employeesNumber\": 50,\n" +
+                        "        \"employees\": [\n" +
+                        "            {\n" +
+                        "                \"id\": 1,\n" +
+                        "                \"name\": \"a\",\n" +
+                        "                \"age\": 10,\n" +
+                        "                \"gender\": \"male\",\n" +
+                        "                \"salary\": 6000\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"id\": 2,\n" +
+                        "                \"name\": \"b\",\n" +
+                        "                \"age\": 20,\n" +
+                        "                \"gender\": \"female\",\n" +
+                        "                \"salary\": 8000\n" +
+                        "            }\n" +
+                        "        ]\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "        \"id\": 5,\n" +
+                        "        \"companyName\": \"f\",\n" +
+                        "        \"employeesNumber\": 60,\n" +
+                        "        \"employees\": [\n" +
+                        "            {\n" +
+                        "                \"id\": 1,\n" +
+                        "                \"name\": \"a\",\n" +
+                        "                \"age\": 10,\n" +
+                        "                \"gender\": \"male\",\n" +
+                        "                \"salary\": 6000\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"id\": 2,\n" +
+                        "                \"name\": \"b\",\n" +
+                        "                \"age\": 20,\n" +
+                        "                \"gender\": \"female\",\n" +
+                        "                \"salary\": 8000\n" +
+                        "            }\n" +
+                        "        ]\n" +
+                        "    }\n" +
+                        "]"));
+    }
+
 
 }
