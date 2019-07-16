@@ -100,4 +100,29 @@ public class CompanyControllerTest {
                         "    ]\n" +
                         "}"));
     }
+
+    @Test
+    public void should_return_employees_when_request_request_a_company_api() throws Exception {
+        Mockito.when(mockCompanyRepository.getCompanyEmployeesById(1001)).thenReturn(new EmployeeRepository().getEmployees());
+
+        mockMvc.perform(get("/companies/1001/employees"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json("[\n" +
+                        "    {\n" +
+                        "        \"id\": 1,\n" +
+                        "        \"name\": \"a\",\n" +
+                        "        \"age\": 10,\n" +
+                        "        \"gender\": \"male\",\n" +
+                        "        \"salary\": 6000\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "        \"id\": 2,\n" +
+                        "        \"name\": \"b\",\n" +
+                        "        \"age\": 20,\n" +
+                        "        \"gender\": \"female\",\n" +
+                        "        \"salary\": 8000\n" +
+                        "    }\n" +
+                        "]"));
+    }
 }
