@@ -8,6 +8,16 @@ public class Company {
     private int employeesNumber;
     private List<Employee> employees;
 
+    public Company() {
+
+    }
+
+    public Company(String companyName, int employeesNumber, List<Employee> employees) {
+        this.companyName = companyName;
+        this.employeesNumber = employeesNumber;
+        this.employees = employees;
+    }
+
     public Company(long id, String companyName, int employeesNumber, List<Employee> employees) {
         this.id = id;
         this.companyName = companyName;

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -17,8 +18,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -186,4 +186,52 @@ public class CompanyControllerTest {
                         "    }\n" +
                         "]"));
     }
+
+    @Test
+    public void should_return_company_when_request_create_a_company_api() throws Exception {
+        List<Company> mockCompanyList = new ArrayList<>();
+        mockCompanyList.add(new Company(1001, "oocl", 30, new EmployeeRepository().getEmployees()));
+        Mockito.when(mockCompanyRepository.getCompanies()).thenReturn(mockCompanyList);
+
+        mockMvc.perform(post("/companies")
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content("{\n" +
+                    "    \"companyName\": \"oocl2\",\n" +
+                    "    \"employeesNumber\": 50,\n" +
+                    "    \"employees\": null\n" +
+                    "}")
+        )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\n" +
+                        "    \"id\": 7,\n" +
+                        "    \"companyName\": \"oocl2\",\n" +
+                        "    \"employeesNumber\": 50,\n" +
+                        "    \"employees\": null\n" +
+                        "}"));
+    }
+
+    @Test
+    public void should_return_company_when_request_update_a_company_api() throws Exception {
+        List<Company> mockCompanyList = new ArrayList<>();
+        mockCompanyList.add(new Company(1001, "oocl", 30, new EmployeeRepository().getEmployees()));
+        Mockito.when(mockCompanyRepository.getCompanies()).thenReturn(mockCompanyList);
+
+        mockMvc.perform(put("/companies/1001")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content("{\n" +
+                        "\t\"companyName\": \"666\"\n" +
+                        "}")
+        )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\n" +
+                        "    \"id\": 1001,\n" +
+                        "    \"companyName\": \"666\",\n" +
+                        "    \"employeesNumber\": 0,\n" +
+                        "    \"employees\": null\n" +
+                        "}"));
+    }
+
+
 }

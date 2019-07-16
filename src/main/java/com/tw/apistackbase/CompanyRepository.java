@@ -37,4 +37,7 @@ public class CompanyRepository {
         companyList.add(company);
     }
 
+    public int getCompanyIndex(Company company) {
+        return companyList.indexOf(company);
+    }
 }
