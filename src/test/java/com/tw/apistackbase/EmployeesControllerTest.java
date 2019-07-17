@@ -8,13 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -129,5 +130,57 @@ public class EmployeesControllerTest {
                         "        \"salary\": 9000\n" +
                         "    }\n" +
                         "]"));
+    }
+
+    @Test
+    public void should_return_employee_when_request_create_an_employee_api() throws Exception {
+        List<Employee> mockEmployees = new ArrayList<>();
+        mockEmployees.add(new Employee(1001, "vv", 40, "male", 5000));
+        Mockito.when(mockEmployeeRepository.getEmployees()).thenReturn(mockEmployees);
+
+        mockMvc.perform(post("/employees")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content("{\n" +
+                        "    \"name\": \"nnn\",\n" +
+                        "    \"age\": 34,\n" +
+                        "    \"gender\": \"female\",\n" +
+                        "    \"salary\": 10000\n" +
+                        "}")
+        )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\n" +
+                        "    \"id\": 3,\n" +
+                        "    \"name\": \"nnn\",\n" +
+                        "    \"age\": 34,\n" +
+                        "    \"gender\": \"female\",\n" +
+                        "    \"salary\": 10000\n" +
+                        "}"));
+    }
+
+    @Test
+    public void should_return_employee_when_request_update_an_employee_api() throws Exception {
+        List<Employee> mockEmployees = new ArrayList<>();
+        mockEmployees.add(new Employee(1001, "vv", 40, "male", 5000));
+        Mockito.when(mockEmployeeRepository.getEmployees()).thenReturn(mockEmployees);
+
+        mockMvc.perform(put("/employees/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content("{\n" +
+                        "    \"name\": \"666\",\n" +
+                        "    \"age\": 22,\n" +
+                        "    \"gender\": \"male\",\n" +
+                        "    \"salary\": 1000\n" +
+                        "}")
+        )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\n" +
+                        "    \"id\": 1,\n" +
+                        "    \"name\": \"666\",\n" +
+                        "    \"age\": 22,\n" +
+                        "    \"gender\": \"male\",\n" +
+                        "    \"salary\": 1000\n" +
+                        "}"));
     }
 }

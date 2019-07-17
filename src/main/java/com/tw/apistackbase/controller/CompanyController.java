@@ -35,7 +35,6 @@ public class CompanyController {
 
     @PostMapping(value = "/companies")
     public ResponseEntity createCompany(@RequestBody Company company) {
-        System.out.println("testtt:" + company.getId());
         if (company.getId() == 0) {
             Company createdCompany = new Company();
             BeanUtils.copyProperties(company, createdCompany);
@@ -50,7 +49,7 @@ public class CompanyController {
     @PutMapping(value = "/companies/{id}")
     public ResponseEntity updateCompany(@PathVariable long id, @RequestBody Company company) {
         if (id >= 0) {
-            Company updatedCompany = companyRepository.getCompanies().stream().filter(x -> x.getId() == company.getId()).collect(Collectors.toList()).get(0);
+            Company updatedCompany = companyRepository.getCompanies().stream().filter(x -> x.getId() == id).collect(Collectors.toList()).get(0);
             if (updatedCompany != null) {
                 BeanUtils.copyProperties(company, updatedCompany);
                 updatedCompany.setId(id);
