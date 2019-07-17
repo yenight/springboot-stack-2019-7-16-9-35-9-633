@@ -67,5 +67,16 @@ public class EmployeeController {
         }
     }
 
+    @DeleteMapping(value = "/employees/{id}")
+    public ResponseEntity deleteEmployee(@PathVariable long id) {
+        if (id >= 0) {
+            Employee employee = employeeRepository.getEmployees().stream().filter(x->x.getId() == id).collect(Collectors.toList()).get(0);
+            employeeRepository.remove(employee);
+            return ResponseEntity.ok(employeeRepository.getEmployees());
+        } else {
+            return (ResponseEntity) ResponseEntity.badRequest();
+        }
+    }
+
 
 }
