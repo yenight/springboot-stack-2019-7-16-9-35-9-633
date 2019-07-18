@@ -1,11 +1,8 @@
 package com.tw.apistackbase.controller;
 
-import com.tw.apistackbase.Company;
-import com.tw.apistackbase.Employee;
-import com.tw.apistackbase.EmployeeRepository;
-import javafx.print.Collation;
+import com.tw.apistackbase.model.Employee;
+import com.tw.apistackbase.repository.EmployeeRepository;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,10 +1,12 @@
 package com.tw.apistackbase;
 
 import com.tw.apistackbase.controller.CompanyController;
-import org.json.JSONObject;
+import com.tw.apistackbase.model.Company;
+import com.tw.apistackbase.repository.CompanyRepository;
+import com.tw.apistackbase.repository.EmployeeRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -13,7 +15,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,11 @@ public class CompanyControllerTest {
 
     @MockBean
     private CompanyRepository mockCompanyRepository;
+
+    @Before
+    public void setUp() {
+
+    }
 
     @Test
     public void should_return_companies_when_request_all_companies_api() throws Exception {

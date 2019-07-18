@@ -1,6 +1,8 @@
 package com.tw.apistackbase;
 
 import com.tw.apistackbase.controller.EmployeeController;
+import com.tw.apistackbase.model.Employee;
+import com.tw.apistackbase.repository.EmployeeRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;

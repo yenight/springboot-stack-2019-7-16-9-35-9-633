@@ -1,9 +1,8 @@
 package com.tw.apistackbase.controller;
 
-import com.tw.apistackbase.Company;
-import com.tw.apistackbase.CompanyRepository;
+import com.tw.apistackbase.model.Company;
+import com.tw.apistackbase.repository.CompanyRepository;
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

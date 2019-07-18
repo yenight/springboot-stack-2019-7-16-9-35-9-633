@@ -1,5 +1,7 @@
-package com.tw.apistackbase;
+package com.tw.apistackbase.repository;
 
+import com.tw.apistackbase.model.Company;
+import com.tw.apistackbase.model.Employee;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

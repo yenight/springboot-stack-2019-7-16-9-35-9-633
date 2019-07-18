@@ -1,4 +1,4 @@
-package com.tw.apistackbase;
+package com.tw.apistackbase.model;
 
 public class Employee {
     private long id;
